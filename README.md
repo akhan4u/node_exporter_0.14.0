@@ -8,7 +8,7 @@ your systems with Prometheus.
 Requirements
 ------------
 
-1. We need Ansible software to be installed in order to use these role, means Role can be run from any machine that have Ansible installed on.
+*  We need Ansible software to be installed in order to use these role, means Role can be run from any machine that have Ansible installed on.
 
 Here are the steps to install the Ansible on Ubuntu 14.04 LTS:
 
@@ -17,12 +17,12 @@ Here are the steps to install the Ansible on Ubuntu 14.04 LTS:
 	sudo apt-get install -y ansible
 
 
-2. Connectivity from Ansible Control server to Remote nodes.
+*  Connectivity from Ansible Control server to Remote nodes.
 
 Role Variables
 --------------
 
-1. Username with which you need to run node_exporter.
+*  Username with which you need to run node_exporter.
 	      
 	         monitoring_user: ubuntu
 
