@@ -22,7 +22,7 @@ Here are the steps to install the Ansible on Ubuntu 14.04 LTS:
 Role Variables
 --------------
 
-*  Username with which you need to run node_exporter.
+Username with which you need to run node_exporter.
 	      
 	         monitoring_user: ubuntu
 
