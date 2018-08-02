@@ -1,0 +1,36 @@
+---
+- name: To Create Monitoring user group
+  group:
+    name: "{{ monitoring_user }}"
+    state: present
+    system: yes
+- name: To Create Monitoring user
+  user: name={{ monitoring_user }} state=present shell=/bin/bash 
+
+- name: Check if the version of Node Exporter already exists
+  stat:
+    path: "/opt/node_exporter/node_exporter-0.14.0.linux-amd64"
+  register: prometheus_node_exporter_install_path
+
+
+- name: To Create the /opt/node_exporter directory on the remote server
+  file: path=/opt/node_exporter state=directory owner={{ monitoring_user }} group={{ monitoring_user }}
+  when: prometheus_node_exporter_install_path.stat.exists == False
+
+- name: Create the textfile_collector directory for node_exporter
+  file: path=/var/lib/node_exporter/textfile_collector/ state=directory owner={{ monitoring_user }} group={{ monitoring_user }}
+  when: prometheus_node_exporter_install_path.stat.exists == False
+
+- name: To Unarchive the Node_exporter tarball onto remote server
+  unarchive:
+    src: files/node_exporter.tar.gz
+    dest: /opt/node_exporter
+    owner: "{{ monitoring_user }}"
+    group: "{{ monitoring_user }}"
+  when: prometheus_node_exporter_install_path.stat.exists == False
+
+- name: To Copy the node_exporter.service file onto the remote server
+  template: src=templates/node_exporter.service dest=/etc/systemd/system/ mode=0644
+  when: prometheus_node_exporter_install_path.stat.exists == False
+  notify:
+    - Start Node_Exporter
