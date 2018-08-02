@@ -1,8 +1,9 @@
-Create_Inventory_with_Ansible
+node_exporter_0.14.0
 =========
 
-This role is used to install Prometheus node_exporter (0.14.0) for monitoring the target systems. 
-
+This role is used to install Prometheus node_exporter (0.14.0) for monitoring the target systems.  
+[Node Exporter](https://prometheus.io/docs/guides/node-exporter/) is the most popular exporter to use when you start monitoring 
+your systems with Prometheus.
 
 Requirements
 ------------
@@ -39,6 +40,11 @@ Sample playbook leveraging this role:
       	    - monitoring_user: ubuntu
     	  roles:
       	    - node_exporter_0.14.0
+	    
+It will also place the systemd [service](templates/node_exporter.service) file.
+                        
+           systemctl start node_exporter.service
+           systemctl status node_exporter.service  
 
 Dependencies
 ------------
